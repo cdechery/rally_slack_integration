@@ -17,6 +17,7 @@ except Exception:
 
 rally_username = config.get('Credentials', 'rally_username')
 rally_password = config.get('Credentials', 'rally_password')
+
 server = config.get('RallySettings', 'server')
 
 DEBUG = False
