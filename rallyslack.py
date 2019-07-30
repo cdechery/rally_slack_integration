@@ -6,9 +6,9 @@ from datetime import timedelta
 from pyral import Rally
 import ConfigParser
 
-#read the settings file
 config = ConfigParser.RawConfigParser()
 
+# attempt to read the settings file
 try:
     config.read('settings.ini')
 except Exception:
@@ -26,22 +26,23 @@ if len(sys.argv) > 1:
 
 #the slack Webhook URL
 webhook_url = config.get('SlackSettings', 'webhook_url')
+
+# POST header
 header = {"Content-type": "application/json",
           "Accept": "text/plain"}
 
-#as we are using an API key, we can leave out the username and password
 user=rally_username
 password=rally_password
+#apikey="_Mgm47nNTvWxfcqSooWHiNj2dbOWBUO0qDHodcjAb0"
 
 workspace=config.get('RallySettings','workspace')
 project=config.get('RallySettings','project')
-#apikey="_Mgm47nNTvWxfcqSooWHiNj2dbOWBUO0qDHodcjAb0"
 
 #which slack channel does this post to?
 channel = config.get('RallySettings','channel')
 
-#Assume this system runs (via cron) every 15 minutes.
-interval = 8 * 60 * 60
+#Assume this system runs (via cron) every 60 minutes.
+interval = 60 * 60
 
 #format of the date strings as we get them from rally
 format = "%Y-%m-%dT%H:%M:%S.%fZ"
