@@ -6,6 +6,7 @@ from datetime import timedelta
 from pyral import Rally
 import ConfigParser
 
+#read the settings file
 config = ConfigParser.RawConfigParser()
 
 try:
