@@ -25,7 +25,7 @@ if len(sys.argv) > 1:
         DEBUG = True
 
 #the slack Webhook URL
-webhook_url = 'https://hooks.slack.com/services/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'
+webhook_url = config.get('SlackSettings', 'webhook_url')
 header = {"Content-type": "application/json",
           "Accept": "text/plain"}
 
