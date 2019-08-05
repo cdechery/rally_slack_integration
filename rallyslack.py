@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 import sys
@@ -10,7 +11,9 @@ config = ConfigParser.RawConfigParser()
 
 # attempt to read the settings file
 try:
-    config.read('settings.ini')
+    path = os.path.dirname(os.path.realpath(__file__))
+    print(path)
+    config.read(path + '/settings.ini')
 except Exception:
     print('Error reading settings.ini file')
     exit(1)
