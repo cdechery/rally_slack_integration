@@ -47,7 +47,7 @@ project=config.get('RallySettings','project')
 channel = config.get('RallySettings','channel')
 
 #get interval from config
-interval = config.get('General', 'interval')
+interval = float( config.get('General', 'interval') )
 
 #the timezone
 localtz = timezone( config.get('General', 'timezone') )
