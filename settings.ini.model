@@ -1,4 +1,7 @@
 # Rename this to settings.ini
+[General]
+timezone=UTC or your local timezone
+interval=number in seconds to look for updates
 [Credentials]
 rally_username=xxxxx
 rally_password=xxxxx

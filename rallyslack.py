@@ -46,11 +46,11 @@ project=config.get('RallySettings','project')
 #which slack channel does this post to?
 channel = config.get('RallySettings','channel')
 
-#Assume this system runs (via cron) every 60 minutes.
-interval = 8 * 60 * 60
+#get interval from config
+interval = config.get('General', 'interval')
 
 #the timezone
-localtz = timezone('America/Sao_Paulo')
+localtz = timezone( config.get('General', 'timezone') )
 
 #format of the date strings as we get them from rally
 format = "%Y-%m-%dT%H:%M:%S.%fZ"
