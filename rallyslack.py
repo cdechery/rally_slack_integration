@@ -4,8 +4,10 @@ import json
 import sys
 from datetime import datetime
 from datetime import timedelta
+from pytz import timezone
 from pyral import Rally
 import ConfigParser
+import pytz
 
 config = ConfigParser.RawConfigParser()
 
@@ -45,7 +47,10 @@ project=config.get('RallySettings','project')
 channel = config.get('RallySettings','channel')
 
 #Assume this system runs (via cron) every 60 minutes.
-interval = 60 * 60
+interval = 8 * 60 * 60
+
+#the timezone
+localtz = timezone('America/Sao_Paulo')
 
 #format of the date strings as we get them from rally
 format = "%Y-%m-%dT%H:%M:%S.%fZ"
@@ -75,14 +80,18 @@ for artifact in response:
     postmessage = postmessage + ': ' + artifact.Name + ' (Owner: '+owner+') \n'
 
     for revision in artifact.RevisionHistory.Revisions:
+
         revisionDate = datetime.strptime(revision.CreationDate, format)
-        formated_date = revisionDate.strftime('%d/%m/%Y %H:%M:%S')
         age = revisionDate - datetime.utcnow()
         seconds = abs(age.total_seconds())
+
         #only even consider this story for inclusion if the timestamp on the revision is less than iterval seconds onld
         if seconds < interval:
             description = revision.Description
             items = description.split(',')
+
+            tz_date = timezone('UTC').localize(revisionDate).astimezone( tz=localtz )
+            formated_date = tz_date.strftime('%H:%M:%S')
 
             for item in items:
                 item = item.strip()
