@@ -68,9 +68,15 @@ tags_to_exclude = config.get('RallySettings','tags_to_exclude').split(',')
 response = rally.get('Artifact', fetch=True, query=query, order='LastUpdateDate desc')
 for artifact in response:
 
+    contains_tag = False
+
     for exclude_tag in tags_to_exclude:
-        if exclude_tag.strip() in artifact.Tags:
-            continue
+        for tag in artifact.Tags:
+            if exclude_tag.strip() == tag.Name:
+                contains_tag = True
+
+    if contains_tag:
+        continue
 
     include = False
 
